@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Discord Staff Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark">D</div>
+          <div class="brand-copy">
+            <strong>DiscordOps</strong>
+            <span>Staff Control</span>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <button class="nav-item active" data-view="dashboard"><span class="nav-icon">◫</span>Dashboard</button>
+          <button class="nav-item" data-view="staff"><span class="nav-icon">◎</span>Staffleden</button>
+          <button class="nav-item" data-view="tickets"><span class="nav-icon">▣</span>Tickets</button>
+          <button class="nav-item" data-view="absence"><span class="nav-icon">◌</span>Afwezigheden</button>
+          <button class="nav-item" data-view="violations"><span class="nav-icon">⚑</span>Overtredingen</button>
+          <button class="nav-item" data-view="activity"><span class="nav-icon">◭</span>Activiteiten</button>
+          <button class="nav-item" data-view="special"><span class="nav-icon">✦</span>Bijzonderheden</button>
+          <button class="nav-item" data-view="stats"><span class="nav-icon">▤</span>Statistieken</button>
+          <button class="nav-item" data-view="reports"><span class="nav-icon">📊</span>Rapporten</button>
+          <button class="nav-item" data-view="settings"><span class="nav-icon">⚙</span>Instellingen</button>
+        </nav>
+
+        <div class="sidebar-footer glass-panel">
+          <div class="footer-label">Systeem status</div>
+          <div class="status-row"><span class="status-dot"></span>Alle systemen online</div>
+          <div class="mini-grid">
+            <div>
+              <div class="mini-label">Sync</div>
+              <strong>99.8%</strong>
+            </div>
+            <div>
+              <div class="mini-label">Audit</div>
+              <strong>24 logs</strong>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-panel">
+        <header class="topbar glass-panel">
+          <div class="search-wrap">
+            <span class="search-icon">⌕</span>
+            <input type="text" id="searchInput" placeholder="Zoek staff, tickets, logs..." />
+          </div>
+
+          <div class="topbar-meta">
+            <div class="time-pill">
+              <span id="dateText">27 Oct 2026</span>
+              <span class="dot-divider"></span>
+              <span id="timeText">14:32</span>
+            </div>
+
+            <button class="primary-btn" id="openLogModal">Nieuwe Log Toevoegen</button>
+
+            <div class="manager-profile">
+              <div class="avatar">MK</div>
+              <div class="profile-copy">
+                <strong>Max Kolk</strong>
+                <span>Management</span>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- DASHBOARD VIEW -->
+        <section id="dashboardView" class="view active">
+          <div class="page-header">
+            <div>
+              <p class="eyebrow">Overzicht</p>
+              <h1>Staff Management Dashboard</h1>
+            </div>
+            <button class="ghost-btn" id="exportBtn">Exporteren</button>
+          </div>
+
+          <div class="stats-grid">
+            <article class="metric-card glass-panel clickable-card" data-detail="staffTotal">
+              <div class="metric-top">
+                <span class="metric-label">Totaal aantal staffleden</span>
+                <span class="metric-icon purple">◎</span>
+              </div>
+              <div class="metric-value">148</div>
+              <div class="metric-trend up"><span>+12.4%</span> vs vorige maand</div>
+            </article>
+
+            <article class="metric-card glass-panel clickable-card" data-detail="ticketsMonth">
+              <div class="metric-top">
+                <span class="metric-label">Tickets deze maand</span>
+                <span class="metric-icon blue">▣</span>
+              </div>
+              <div class="metric-value">342</div>
+              <div class="metric-trend up"><span>+8.1%</span> vs vorige maand</div>
+            </article>
+
+            <article class="metric-card glass-panel clickable-card" data-detail="violations">
+              <div class="metric-top">
+                <span class="metric-label">Overtredingen</span>
+                <span class="metric-icon red">⚑</span>
+              </div>
+              <div class="metric-value">19</div>
+              <div class="metric-trend down"><span>-3.6%</span> vs vorige maand</div>
+            </article>
+
+            <article class="metric-card glass-panel clickable-card" data-detail="absence">
+              <div class="metric-top">
+                <span class="metric-label">Afwezigheden</span>
+                <span class="metric-icon amber">◌</span>
+              </div>
+              <div class="metric-value">26</div>
+              <div class="metric-trend up"><span>+2.9%</span> vs vorige maand</div>
+            </article>
+
+            <article class="metric-card glass-panel clickable-card" data-detail="openTasks">
+              <div class="metric-top">
+                <span class="metric-label">Open zaken</span>
+                <span class="metric-icon teal">◍</span>
+              </div>
+              <div class="metric-value">43</div>
+              <div class="metric-trend neutral"><span>9</span> vereist aandacht</div>
+            </article>
+
+            <article class="metric-card glass-panel clickable-card" data-detail="activeStaff">
+              <div class="metric-top">
+                <span class="metric-label">Actieve staffleden</span>
+                <span class="metric-icon green">◔</span>
+              </div>
+              <div class="metric-value">121</div>
+              <div class="metric-trend up"><span>+5.8%</span> online / dienst</div>
+            </article>
+          </div>
+
+          <div class="content-grid">
+            <section class="panel glass-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">Activiteiten</p>
+                  <h2>Laatste updates</h2>
+                </div>
+                <button class="chip-btn">Vandaag</button>
+              </div>
+
+              <div class="activity-list">
+                <div class="activity-item">
+                  <div class="activity-icon blue">◎</div>
+                  <div class="activity-copy">
+                    <strong>Samir H.</strong> heeft een nieuw ticket ingediend
+                    <small>2 uur geleden</small>
+                  </div>
+                  <span class="pill open">Open</span>
+                </div>
+
+                <div class="activity-item">
+                  <div class="activity-icon green">✓</div>
+                  <div class="activity-copy">
+                    <strong>Jade P.</strong> heeft een afwezigheid goedgekeurd
+                    <small>4 uur geleden</small>
+                  </div>
+                  <span class="pill resolved">Afgerond</span>
+                </div>
+
+                <div class="activity-item">
+                  <div class="activity-icon purple">⚑</div>
+                  <div class="activity-copy">
+                    <strong>Milan V.</strong> is gecontroleerd op een overtreding
+                    <small>6 uur geleden</small>
+                  </div>
+                  <span class="pill inprogress">In behandeling</span>
+                </div>
+
+                <div class="activity-item">
+                  <div class="activity-icon amber">◌</div>
+                  <div class="activity-copy">
+                    <strong>Lina S.</strong> heeft een notitie toegevoegd
+                    <small>8 uur geleden</small>
+                  </div>
+                  <span class="pill note">Bijzonderheid</span>
+                </div>
+              </div>
+            </section>
+
+            <section class="panel glass-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">Staff</p>
+                  <h2>Top prestaties</h2>
+                </div>
+              </div>
+
+              <div class="leaderboard">
+                <div class="leader-row">
+                  <div class="leader-meta">
+                    <div class="tiny-avatar">SH</div>
+                    <div>
+                      <strong>Samir H.</strong>
+                      <small>Moderator</small>
+                    </div>
+                  </div>
+                  <span class="rank-score">98%</span>
+                </div>
+
+                <div class="leader-row">
+                  <div class="leader-meta">
+                    <div class="tiny-avatar">JP</div>
+                    <div>
+                      <strong>Jade P.</strong>
+                      <small>Support Lead</small>
+                    </div>
+                  </div>
+                  <span class="rank-score">96%</span>
+                </div>
+
+                <div class="leader-row">
+                  <div class="leader-meta">
+                    <div class="tiny-avatar">MV</div>
+                    <div>
+                      <strong>Milan V.</strong>
+                      <small>Community Manager</small>
+                    </div>
+                  </div>
+                  <span class="rank-score">94%</span>
+                </div>
+
+                <div class="leader-row">
+                  <div class="leader-meta">
+                    <div class="tiny-avatar">LS</div>
+                    <div>
+                      <strong>Lina S.</strong>
+                      <small>Moderator</small>
+                    </div>
+                  </div>
+                  <span class="rank-score">92%</span>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <!-- STAFF VIEW -->
+        <section id="staffView" class="view">
+          <div class="page-header">
+            <div>
+              <p class="eyebrow">Management</p>
+              <h1>Staffleden</h1>
+            </div>
+            <div class="header-actions">
+              <button class="ghost-btn" id="filterBtn">Filteren</button>
+              <button class="primary-btn" id="addStaffBtn">Staff Toevoegen</button>
+            </div>
+          </div>
+
+          <div class="toolbar glass-panel">
+            <div class="filter-group">
+              <select id="sortSelect">
+                <option>Naam</option>
+                <option>Tickets</option>
+                <option>Status</option>
+              </select>
+              <select id="statusFilter">
+                <option value="">Alle statussen</option>
+                <option value="active">Actief</option>
+                <option value="absent">Afwezig</option>
+                <option value="probation">Proeftijd</option>
+                <option value="suspended">Geschorst</option>
+              </select>
+              <select id="roleFilter">
+                <option value="">Alle functies</option>
+                <option value="Moderator">Moderator</option>
+                <option value="Support Lead">Support Lead</option>
+                <option value="Community Manager">Community Manager</option>
+                <option value="Operations">Operations</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="staff-grid" id="staffGrid"></div>
+        </section>
+
+        <!-- TICKETS VIEW -->
+        <section id="ticketsView" class="view">
+          <div class="page-header">
+            <div>
+              <p class="eyebrow">Beheer</p>
+              <h1>Tickets</h1>
+            </div>
+            <button class="primary-btn" id="newTicketBtn">Nieuw Ticket</button>
+          </div>
+
+          <div class="tickets-table glass-panel">
+            <div class="table-header">
+              <div class="col-number">#</div>
+              <div class="col-status">Status</div>
+              <div class="col-title">Titel</div>
+              <div class="col-assignee">Toegewezen</div>
+              <div class="col-priority">Prioriteit</div>
+              <div class="col-created">Aangemaakt</div>
+            </div>
+            <div id="ticketsTableBody" class="table-body"></div>
+          </div>
+        </section>
+
+        <!-- ABSENCES VIEW -->
+        <section id="absenceView" class="view">
+          <div class="page-header">
+            <div>
+              <p class="eyebrow">Planning</p>
+              <h1>Afwezigheden</h1>
+            </div>
+            <button class="primary-btn" id="newAbsenceBtn">Afwezigheid Toevoegen</button>
+          </div>
+
+          <div class="absence-grid" id="absenceGrid"></div>
+        </section>
+
+        <!-- VIOLATIONS VIEW -->
+        <section id="violationsView" class="view">
+          <div class="page-header">
+            <div>
+              <p class="eyebrow">Disciplinair</p>
+              <h1>Overtredingen</h1>
+            </div>
+            <button class="primary-btn" id="newViolationBtn">Overtreding Toevoegen</button>
+          </div>
+
+          <div class="violations-grid" id="violationsGrid"></div>
+        </section>
+
+        <!-- ACTIVITY VIEW -->
+        <section id="activityView" class="view">
+          <div class="page-header">
+            <div>
+              <p class="eyebrow">Logboek</p>
+              <h1>Activiteiten</h1>
+            </div>
+            <select id="activityFilter" class="ghost-btn">
+              <option>Alle typen</option>
+              <option>Tickets</option>
+              <option>Moderation</option>
+              <option>Login</option>
+              <option>Changes</option>
+            </select>
+          </div>
+
+          <div class="activity-timeline" id="activityTimeline"></div>
+        </section>
+
+        <!-- SPECIAL VIEW -->
+        <section id="specialView" class="view">
+          <div class="page-header">
+            <div>
+              <p class="eyebrow">Notities</p>
+              <h1>Bijzonderheden</h1>
+            </div>
+            <button class="primary-btn" id="newSpecialBtn">Bijzonderheid Toevoegen</button>
+          </div>
+
+          <div class="special-grid" id="specialGrid"></div>
+        </section>
+
+        <!-- STATS VIEW -->
+        <section id="statsView" class="view">
+          <div class="page-header">
+            <div>
+              <p class="eyebrow">Inzichten</p>
+              <h1>Statistieken</h1>
+            </div>
+            <button class="ghost-btn">Periode: 12 maanden</button>
+          </div>
+
+          <div class="stats-panels">
+            <div class="panel glass-panel chart-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">Trend</p>
+                  <h2>Tickets per maand</h2>
+                </div>
+              </div>
+              <div class="chart-wrap">
+                <svg viewBox="0 0 420 200" class="line-chart">
+                  <path d="M20 160 C 60 145, 90 120, 120 110 S 180 70, 210 90 S 270 120, 300 85 S 360 60, 400 30" />
+                  <path class="fill-area" d="M20 160 C 60 145, 90 120, 120 110 S 180 70, 210 90 S 270 120, 300 85 S 360 60, 400 30 L400 180 L20 180 Z"></path>
+                </svg>
+              </div>
+            </div>
+
+            <div class="panel glass-panel chart-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">Vergelijking</p>
+                  <h2>Afwezigheden per maand</h2>
+                </div>
+              </div>
+              <div class="bar-chart">
+                <div class="bar-group">
+                  <span class="bar" style="height: 35%"></span>
+                  <span class="bar" style="height: 55%"></span>
+                  <span class="bar" style="height: 45%"></span>
+                  <span class="bar" style="height: 68%"></span>
+                  <span class="bar" style="height: 58%"></span>
+                  <span class="bar" style="height: 72%"></span>
+                  <span class="bar" style="height: 62%"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel glass-panel chart-panel">
+              <div class="panel-header">
+                <div>
+                  <p class="eyebrow">Verdeling</p>
+                  <h2>Overtredingen per type</h2>
+                </div>
+              </div>
+              <div class="donut-wrap">
+                <div class="donut-chart">
+                  <div class="donut-center">
+                    <strong>42%</strong>
+                    <span>Beheer</span>
+                  </div>
+                </div>
+                <ul class="legend">
+                  <li><span class="legend-swatch blue"></span> Beheer <strong>42%</strong></li>
+                  <li><span class="legend-swatch purple"></span> Gedrag <strong>31%</strong></li>
+                  <li><span class="legend-swatch red"></span> Discipline <strong>17%</strong></li>
+                  <li><span class="legend-swatch gray"></span> Overig <strong>10%</strong></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- REPORTS VIEW -->
+        <section id="reportsView" class="view">
+          <div class="page-header">
+            <div>
+              <p class="eyebrow">Analyses</p>
+              <h1>Rapporten</h1>
+            </div>
+            <button class="primary-btn" id="generateReportBtn">Rapport Genereren</button>
+          </div>
+
+          <div class="reports-grid" id="reportsGrid"></div>
+        </section>
+
+        <!-- SETTINGS VIEW -->
+        <section id="settingsView" class="view">
+          <div class="page-header">
+            <div>
+              <p class="eyebrow">Configuratie</p>
+              <h1>Instellingen</h1>
+            </div>
+          </div>
+
+          <div class="settings-panel glass-panel">
+            <div class="settings-section">
+              <h3>Dashboard Instellingen</h3>
+              <div class="setting-item">
+                <label>
+                  <input type="checkbox" checked /> Notificaties inschakelen
+                </label>
+              </div>
+              <div class="setting-item">
+                <label>
+                  <input type="checkbox" checked /> Audit logging
+                </label>
+              </div>
+            </div>
+
+            <div class="settings-section">
+              <h3>Toegang</h3>
+              <div class="setting-item">
+                <label>Rol:</label>
+                <select>
+                  <option>Administrator</option>
+                  <option>Manager</option>
+                  <option>Moderator</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="settings-actions">
+              <button class="ghost-btn">Annuleren</button>
+              <button class="primary-btn">Opslaan</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- LOG MODAL -->
+    <div class="modal-overlay hidden" id="logModal">
+      <div class="modal glass-panel">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Nieuw logboek item</p>
+            <h2>Nieuwe Log Toevoegen</h2>
+          </div>
+          <button class="close-modal">✕</button>
+        </div>
+
+        <form id="logForm">
+          <div class="stepper">
+            <div class="step active">1. Stafflid</div>
+            <div class="step">2. Type</div>
+            <div class="step">3. Details</div>
+          </div>
+
+          <div class="form-grid">
+            <div class="field">
+              <label>Stafflid</label>
+              <select id="logStaffSelect">
+                <option value="">Kies stafflid</option>
+                <option>Samir H.</option>
+                <option>Jade P.</option>
+                <option>Milan V.</option>
+                <option>Lina S.</option>
+                <option>Noah K.</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label>Log type</label>
+              <select id="logTypeSelect">
+                <option value="">Kies type</option>
+                <option value="activity">Activiteit</option>
+                <option value="ticket">Ticket</option>
+                <option value="absence">Afwezigheid</option>
+                <option value="violation">Overtreding</option>
+                <option value="special">Bijzonderheid</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="dynamicFields" class="dynamic-fields"></div>
+
+          <div class="modal-actions">
+            <button type="button" class="ghost-btn close-modal">Annuleren</button>
+            <button type="submit" class="primary-btn">Log Opslaan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- STAFF ADD/EDIT MODAL -->
+    <div class="modal-overlay hidden" id="staffModal">
+      <div class="modal glass-panel">
+        <div class="modal-header">
+          <div>
+            <p class="eyebrow">Staff Beheer</p>
+            <h2 id="staffModalTitle">Nieuw Stafflid</h2>
+          </div>
+          <button class="close-modal">✕</button>
+        </div>
+
+        <form id="staffForm">
+          <div class="form-grid">
+            <div class="field">
+              <label>Naam</label>
+              <input type="text" id="staffName" placeholder="Volledige naam" />
+            </div>
+            <div class="field">
+              <label>Discord ID</label>
+              <input type="text" id="staffDiscordId" placeholder="#12345" />
+            </div>
+            <div class="field">
+              <label>Functie</label>
+              <select id="staffRole">
+                <option>Moderator</option>
+                <option>Support Lead</option>
+                <option>Community Manager</option>
+                <option>Operations</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Status</label>
+              <select id="staffStatus">
+                <option value="active">Actief</option>
+                <option value="absent">Afwezig</option>
+                <option value="probation">Proeftijd</option>
+                <option value="suspended">Geschorst</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" class="ghost-btn close-modal">Annuleren</button>
+            <button type="submit" class="primary-btn">Opslaan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- PROFILE MODAL -->
+    <div class="profile-modal hidden" id="profileModal">
+      <div class="profile-panel glass-panel">
+        <div class="profile-header">
+          <div class="profile-main">
+            <div class="avatar lg" id="profileAvatar">SH</div>
+            <div>
+              <p class="eyebrow">Staff profiel</p>
+              <h2 id="profileName">Samir H.</h2>
+              <span class="pill active" id="profileRole">Moderator</span>
+            </div>
+          </div>
+          <div class="profile-actions">
+            <button class="ghost-btn" id="editStaffBtn">Bewerken</button>
+            <button class="close-profile">✕</button>
+          </div>
+        </div>
+
+        <div class="profile-layout">
+          <aside class="profile-sidebar">
+            <div class="profile-box">
+              <div class="box-title">Persoonlijke gegevens</div>
+              <ul class="info-list">
+                <li><span>Discord ID</span><strong id="profileDiscord">#21942</strong></li>
+                <li><span>Functie</span><strong id="profileFunction">Moderator</strong></li>
+                <li><span>Status</span><strong id="profileStatus">Actief</strong></li>
+                <li><span>Aangenomen</span><strong id="profileJoined">12-03-2023</strong></li>
+              </ul>
+            </div>
+
+            <div class="profile-box">
+              <div class="box-title">Status</div>
+              <div class="mini-stats">
+                <div><span>Tickets</span><strong id="profileTicketsThisMonth">12</strong></div>
+                <div><span>Overtredingen</span><strong id="profileViolations">2</strong></div>
+              </div>
+            </div>
+          </aside>
+
+          <section class="profile-content">
+            <div class="profile-tabs">
+              <button class="tab active">Overzicht</button>
+              <button class="tab">Activiteiten</button>
+              <button class="tab">Tickets</button>
+              <button class="tab">Afwezigheden</button>
+              <button class="tab">Notities</button>
+            </div>
+
+            <div class="stats-summary">
+              <div class="summary-item">
+                <span>Tickets deze maand</span>
+                <strong id="summaryTicketsMonth">12</strong>
+              </div>
+              <div class="summary-item">
+                <span>Tickets totaal</span>
+                <strong id="summaryTicketsTotal">48</strong>
+              </div>
+              <div class="summary-item">
+                <span>Overtredingen</span>
+                <strong id="summaryViolations">2</strong>
+              </div>
+              <div class="summary-item">
+                <span>Dagen afwezig</span>
+                <strong id="summaryAbsentDays">6</strong>
+              </div>
+              <div class="summary-item">
+                <span>Activiteiten totaal</span>
+                <strong id="summaryTotalActivity">42</strong>
+              </div>
+            </div>
+
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <strong>Ticket gesloten</strong>
+                  <span>Ticket #4421 afgerond door support team</span>
+                  <time>Vandaag, 14:15</time>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <strong>Afwezigheid goedgekeurd</strong>
+                  <span>Vrijdag 12 – maandag 15, medische reden</span>
+                  <time>Gisteren, 11:42</time>
+                </div>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                  <strong>Activiteit geregistreerd</strong>
+                  <span>Verwerking van 18 support tickets</span>
+                  <time>27 Oct, 08:30</time>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <script src="site.js"></script>
+  </body>
+</html>
